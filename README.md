@@ -1,4 +1,5 @@
 Klasse: Schüler:
+
 Variable, Unabhängig: Abituraufgabe: A_Themenbereich_Kapitel_Unterkapitel_Nummer
 Variable, Abhängig: Unterkapitelnote: Gewichtete Summe aus Abituraufgaben und Transferaufgaben.
 Variable, Abhängig: Kapitelnote:Gewichtete Summe aus Unterkapitelnoten.
@@ -19,6 +20,7 @@ Zufallsexperimente: Bäume; E und s
 Händische Binomialverteilung: Bernoulli-Formel; Histogramme
 GTR - Binomialverteilung: GTR-Bernoulli, Inverse-Rechnung
 
+Abituraufgaben:
 Zu Bäumen: 2
 Zu E und s: 2
 Zu Händischer Binomialverteilung:4
