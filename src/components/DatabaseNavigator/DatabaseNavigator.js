@@ -1,44 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DataTable from '../shared/DataTable/DataTable';
-import { getCollectionOrDocuments } from '../../services/firestoreService'; // Adjust the import path as needed
-import styles from './DatabaseNavigator.module.css'; // Assuming you have or will create CSS for this component
+
+
+const depthToSubcollections = {
+  1: ["Aufgaben", "Kapitel"], // Assuming Themenbereiche is at depth 1
+  3: ["Aufgaben", "Unterkapitel"],
+  5: ['Aufgabentyp'],
+  7: ['Aufgaben']
+};
 
 const DatabaseNavigator = () => {
-  const [currentLevelData, setCurrentLevelData] = useState([]);
-  const [currentPath, setCurrentPath] = useState([]); // Tracks the current navigation path
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getCollectionOrDocuments([]);
-      setCurrentLevelData(data);
-    };
-
-    fetchData().catch(console.error);
-  }, []);
-
-  const handleNext = async (item) => {
-    const newPath = [...currentPath, item.name];
-    const data = await getCollectionOrDocuments(newPath);
-    setCurrentLevelData(data);
+  const [currentPath, setCurrentPath] = useState('Themenbereiche');
+  const navigate = (newPath) => {
     setCurrentPath(newPath);
   };
+  const pathSegments = currentPath.split('/').filter(Boolean);
+  const depth = pathSegments.length;
 
-  const handleBack = async () => {
-    const newPath = currentPath.slice(0, -1); // Go up one level in the path
-    const data = await getCollectionOrDocuments(newPath);
-    setCurrentLevelData(data);
-    setCurrentPath(newPath);
-  };
+  // Calculate subcollections based on current path depth
+  const subcollections = depthToSubcollections[depth] || [];
 
   return (
-    <div className={styles.container}>
-      <DataTable
-        data={currentLevelData}
-        onNext={handleNext}
-        onTrain={() => {}} // Placeholder for future implementation
-        onBack={handleBack}
-        canGoBack={currentPath.length > 0}
-      />
+    <div className={styles.DatabaseNavigator}>
+      <h1>Database Navigator</h1>
+      <DataTable path={currentPath} subcollections={subcollections} onNavigate={navigate} />
     </div>
   );
 };

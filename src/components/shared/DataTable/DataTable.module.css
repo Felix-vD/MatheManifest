@@ -1,0 +1,60 @@
+/* DataTable.module.css */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px; 
+}
+
+th {
+  background-color: #e0e0e0; /* Darker shade for contrast */
+  font-weight: bold;
+}
+
+tr:hover {
+  background-color: #f0f0f0;
+}
+
+button {
+  margin-right: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #d1d1d1;
+  color: black;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+button:hover {
+  background-color: #c0c0c0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.backButton {
+  background-color: #e7e7e7;
+  color: #333;
+}
+
+.backButton:hover {
+  background-color: #d4d4d4;
+}
+
+.dataTableContainer {
+  width: 100%;
+}
+
+.backButtonContainer {
+  display: flex;
+  justify-content: flex-end; /* Aligns the container to the right */
+  padding: 10px 8px; /* Adjust spacing as needed, align with td padding for consistency */
+  border-bottom: 1px solid #ddd; /* Optional, if you want to match the table row style */
+}
