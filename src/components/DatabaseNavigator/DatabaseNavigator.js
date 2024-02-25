@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DataTable from '../shared/DataTable/DataTable';
-
+import styles from './DatabaseNavigator.module.css';
 
 const depthToSubcollections = {
   1: ["Aufgaben", "Kapitel"], // Assuming Themenbereiche is at depth 1
