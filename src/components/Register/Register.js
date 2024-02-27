@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Register.module.css'; // Adjust the path as necessary
 import { db } from '../../firebase-config'; // Adjust the path to your Firebase config
 import { collection, addDoc } from 'firebase/firestore';
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
     // Function to handle form submission
@@ -17,10 +18,13 @@ const Register = () => {
         const solution = event.target.solution.value;
         const points = parseInt(event.target.points.value, 10); // Assuming points is an integer
         const difficulty = event.target.difficulty.value;
+        const URL = event.target.url.value;
+        const customDocId = event.target.customDocId.value;
+        
 
         try {
             // Add a new document with the provided values to the "users" collection
-            const docRef = await addDoc(collection(db, "Aufgaben"), {
+            await setDoc(doc(db, "Aufgaben", customDocId), {
                 name,
                 topicId,
                 chapterId,
@@ -28,43 +32,61 @@ const Register = () => {
                 exerciseId,
                 solution,
                 points,
-                difficulty
+                difficulty,
+                URL
+               
             });
-            console.log("Document written with ID: ", docRef.id);
             event.target.reset();
         } catch (e) {
             console.error("Error adding document: ", e);
         }
     };
-
     return (
         <div className={styles.container}>
             <h1>Register</h1>
             <div>
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" className={styles.inputField} /><br /><br />
-                    <label htmlFor="topicId">Topic ID:</label>
-                    <input type="text" id="topicId" name="topicId" className={styles.inputField} /><br /><br />
-                    <label htmlFor="chapterId">Chapter ID:</label>
-                    <input type="text" id="chapterId" name="chapterId" className={styles.inputField} /><br /><br />
-                    <label htmlFor="subchapterId">Subchapter ID:</label>
-                    <input type="text" id="subchapterId" name="subchapterId" className={styles.inputField} /><br /><br />
-                    <label htmlFor="exerciseId">Exercise ID:</label>
-                    <input type="text" id="exerciseId" name="exerciseId" className={styles.inputField} /><br /><br />
-                    <label htmlFor="solution">Solution:</label>
-                    <input type="number" id="solution" name="solution" className={styles.inputField} /><br /><br />
-                    <label htmlFor="points">Points:</label>
-                    <input type="number" id="points" name="points" className={styles.inputField} /><br /><br />
-                    <label htmlFor="difficulty">Difficulty:</label>
-                    <input type="text" id="difficulty" name="difficulty" className={styles.inputField} /><br /><br />
-                    {/* <select id="difficulty" name="difficulty" className={styles.inputField}>
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
-                    </select><br /><br /> */}
+                    <div>
+                        <label htmlFor="customDocId" className={styles.label}>Document ID:</label>
+                        <input type="text" id="customDocId" name="customDocId" className={styles.inputField} /></div>
+                    <div>
+                        <label htmlFor="name" className={styles.label}>Name:</label>
+                        <input type="text" id="name" name="name" className={styles.inputField} />
+                    </div>
+                    <div>
+                        <label htmlFor="topicId" className={styles.label}>Topic ID:</label>
+                        <input type="text" id="topicId" name="topicId" className={styles.inputField} />
+                    </div>
+                    <div>
+                        <label htmlFor="chapterId" className={styles.label}>Chapter ID:</label>
+                        <input type="text" id="chapterId" name="chapterId" className={styles.inputField} />
+                    </div>
+                    <div>
+                        <label htmlFor="subchapterId" className={styles.label}>Subchapter ID:</label>
+                        <input type="text" id="subchapterId" name="subchapterId" className={styles.inputField} />
+                    </div>
+                    <div>
+                        <label htmlFor="exerciseId" className={styles.label}>Exercise ID:</label>
+                        <input type="text" id="exerciseId" name="exerciseId" className={styles.inputField} />
+                    </div><div>
+                        <label htmlFor="solution" className={styles.label}>Solution:</label>
+                        <input type="text" id="solution" name="solution" className={styles.inputField} />
+                    </div>
+                    <div>
+                        <label htmlFor="points" className={styles.label}>Points:</label>
+                        <input type="number" id="points" name="points" className={styles.inputField} />
+                    </div>
+                    <div>
+                        <label htmlFor="difficulty" className={styles.label}>Difficulty:</label>
+                        <input type="text" id="difficulty" name="difficulty" className={styles.inputField} />
+                    </div>
+                    <div>
+                        <label htmlFor="url" className={styles.label}>URL:</label>
+                        <input type="text" id="url" name="url" className={styles.inputField} />
+                    </div>
                     <button type="submit" className={styles.button}>Register</button>
                 </form>
+
             </div>
         </div>
     );
