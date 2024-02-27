@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './Register.module.css'; // Adjust the path as necessary
 import { db } from '../../firebase-config'; // Adjust the path to your Firebase config
-import { collection, addDoc } from 'firebase/firestore';
-import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
+
 
 const Register = () => {
     // Function to handle form submission
@@ -19,12 +19,13 @@ const Register = () => {
         const points = parseInt(event.target.points.value, 10); // Assuming points is an integer
         const difficulty = event.target.difficulty.value;
         const URL = event.target.url.value;
-        const customDocId = event.target.customDocId.value;
         
+        
+
 
         try {
             // Add a new document with the provided values to the "users" collection
-            await setDoc(doc(db, "Aufgaben", customDocId), {
+            await addDoc(collection(db, "Aufgaben"), {
                 name,
                 topicId,
                 chapterId,
@@ -45,10 +46,9 @@ const Register = () => {
         <div className={styles.container}>
             <h1>Register</h1>
             <div>
+
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="customDocId" className={styles.label}>Document ID:</label>
-                        <input type="text" id="customDocId" name="customDocId" className={styles.inputField} /></div>
+                    
                     <div>
                         <label htmlFor="name" className={styles.label}>Name:</label>
                         <input type="text" id="name" name="name" className={styles.inputField} />
@@ -86,6 +86,7 @@ const Register = () => {
                     </div>
                     <button type="submit" className={styles.button}>Register</button>
                 </form>
+
 
             </div>
         </div>
