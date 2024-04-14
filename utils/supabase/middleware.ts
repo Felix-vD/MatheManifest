@@ -1,3 +1,4 @@
+import { protectedPaths } from '@/lib/constant'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
@@ -54,7 +55,23 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  await supabase.auth.getUser()
+  const {data} = await supabase.auth.getSession();
+  const url = new URL(request.url);
+  if(data.session){
+    if(url.pathname === '/auth'){
+
+      //Maybe i need to do return NextResponse.redirect(new URL ("/", request.url))
+      return NextResponse.redirect(new URL ("/", request.url))
+    }
+    return response;
+  }else{
+    if(protectedPaths.includes(url.pathname)){
+      //Maybe i need to do return NextResponse.redirect(new URL ("/auth", request.url))
+      return NextResponse.redirect(new URL ("/auth?next=" + url.pathname, request.url));
+    }
+  }
+
+  console.log(url.pathname)
 
   return response
 }
