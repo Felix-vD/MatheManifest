@@ -12,7 +12,7 @@ import {
   import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
 import Link from "next/link"
 import Profile from "./Profile"
-
+import { ModeToggle } from "./ui/toggle-mode"
 
 export default function Nav() {
     return (
@@ -46,10 +46,11 @@ export default function Nav() {
                         </NavigationMenuLink>
                     </Link>
                 </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <ModeToggle />
+                </NavigationMenuItem>
                 <Profile />
             </NavigationMenuList>
         </NavigationMenu> 
-
-            
     )
 }

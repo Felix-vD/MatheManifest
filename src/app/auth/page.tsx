@@ -26,15 +26,12 @@ export default function auth() {
                 <KeyRound />
                 <h1 className=" text-2xl font-bold">Next + Supabase</h1>
             </div>
-            
             <p className="text-sm">Register/SignIn Today 👇</p>
-            
             <div className="flex flex-col gap-5">
-                
                 <Button className="block w-full flex items-center gap-2" variant="outline" onClick={() => handeLoginWithOAuth("github")}><FaSquareGithub className="w-6 h-6"/>GitHub</Button>
                 <Button className="block w-full flex items-center gap-2" variant="outline" onClick={() => handeLoginWithOAuth("google")}> <FcGoogle className="w-6 h-6" /> Google</Button>
             </div>
             <div className="glowBox -z-10"></div>
         </div>
     </div>;
-    }
+}
