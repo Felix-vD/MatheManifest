@@ -4,7 +4,10 @@ import { KeyRound } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareGithub } from "react-icons/fa6";
 import { createClient } from "@utils/supabase/clients";
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import SignUpForm from "@/components/SignUp";
+import LoginForm from "@/components/Login";
 export default function auth() {
 
     const handeLoginWithOAuth = (provider:'github' | 'google') => {
@@ -20,7 +23,49 @@ export default function auth() {
 
 
 
-    return <div className="flex items-center justify-center w-full h-screen">
+    return (
+    <div className="flex items-center justify-center">
+        <Tabs defaultValue="account" className="w-[400px]">
+        <TabsList>
+            <TabsTrigger value="signup">SignUp</TabsTrigger>
+            <TabsTrigger value="login">Login</TabsTrigger>
+        </TabsList>
+        <TabsContent value="signup">
+            <Card>
+            <CardHeader>
+                <CardTitle>SignUp</CardTitle>
+                <CardDescription>
+                If you don't have an account, you can sign up here.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2">
+                <div className="space-y-1">
+                <SignUpForm></SignUpForm>
+                </div>
+            </CardContent>
+            </Card>
+        </TabsContent>
+        <TabsContent value="login">
+            <Card>
+            <CardHeader>
+                <CardTitle>Login</CardTitle>
+                <CardDescription>
+                If you already have an account, you can login here.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2">
+                <div className="space-y-1">
+                <LoginForm></LoginForm>
+                </div>
+            </CardContent>
+            </Card>
+        </TabsContent>
+        </Tabs>
+    </div>
+    )
+}
+//alternative login styling, from daily webcoding video
+{/* <div className="flex items-center justify-center w-full h-screen">
         <div className="w-96 rounded-md border p-5 space-y-5 relative bg-black">
             <div className="flex items-center gap-2">
                 <KeyRound />
@@ -33,5 +78,4 @@ export default function auth() {
             </div>
             <div className="glowBox -z-10"></div>
         </div>
-    </div>;
-}
+    </div>; */}

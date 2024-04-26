@@ -19,7 +19,7 @@ export default function Nav() {
         <NavigationMenu>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <Link href="/" legacyBehavior passHref>
+                    <Link href="/home" legacyBehavior passHref>
                         <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                             Home
                         </NavigationMenuLink>
@@ -40,16 +40,9 @@ export default function Nav() {
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <Link href="/auth" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            Sign in
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
                     <ModeToggle />
                 </NavigationMenuItem>
-                <Profile />
+                    <Profile />
             </NavigationMenuList>
         </NavigationMenu> 
     )

@@ -26,15 +26,7 @@ export default function Home() {
       if(error) console.log(error)
   };
   setNewUser(); 
-  const handeLoginWithOAuth = (provider:'github' | 'google') => {
-    const supabase = createClient();
-    supabase.auth.signInWithOAuth({ 
-        provider,
-        options:{
-            redirectTo: location.origin + "/auth/callback"
-        } 
-    });
-  };
+  
   return (
     <div className="flex items-center justify-center">
         <Tabs defaultValue="account" className="w-[400px]">

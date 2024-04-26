@@ -30,7 +30,7 @@ export default function useUser() {
                 .eq("id", data.session.user.id)
                 .single();
 
-                console.log(user, data)
+                
                 return user;
             }
             return initUser;

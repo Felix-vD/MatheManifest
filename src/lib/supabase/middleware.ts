@@ -54,24 +54,30 @@ export async function updateSession(request: NextRequest) {
       },
     }
   )
-
-  const {data} = await supabase.auth.getSession();
+  
+  const {data} = await supabase.auth.getUser();
   const url = new URL(request.url);
-  if(data.session){
+  console.log(data)
+  if(data.user){
     if(url.pathname === '/auth'){
 
       //Maybe i need to do return NextResponse.redirect(new URL ("/", request.url))
-      return NextResponse.redirect(new URL ("/", request.url))
+      return NextResponse.redirect(
+        new URL ("/", request.url)
+      )
     }
-    return response;
+    return NextResponse.next();
   }else{
     if(protectedPaths.includes(url.pathname)){
       //Maybe i need to do return NextResponse.redirect(new URL ("/auth", request.url))
-      return NextResponse.redirect(new URL ("/auth?next=" + url.pathname, request.url));
+      return NextResponse.redirect(
+        new URL ("/auth?next=" + url.pathname, request.url)
+      );
     }
   }
 
   console.log(url.pathname)
+  await supabase.auth.getUser()
 
-  return response
+  return NextResponse.next();
 }
