@@ -1,1 +1,1 @@
-export const protectedPaths = ["/home", "/faq", "/dashboard"]
+export const protectedPaths = ["/faq"];
