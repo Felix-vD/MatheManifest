@@ -29,8 +29,8 @@ export default function Home() {
   
   return (
     <div className="flex items-center justify-center">
-        <Tabs defaultValue="account" className="w-[400px]">
-          <TabsList>
+        <Tabs defaultValue="signup" className="w-[400px]">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="signup">SignUp</TabsTrigger>
             <TabsTrigger value="login">Login</TabsTrigger>
           </TabsList>

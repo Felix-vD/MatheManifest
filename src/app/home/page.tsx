@@ -11,8 +11,13 @@ export default function home() {
   return (
       <div>
         <h1>Home Page</h1>
-
-        <div>
+        <div>Fange an zu üben oder schaue dir unsere Videos an -{'>'}
+            <a href="https://www.youtube.com/channel/UC-kerZk2Q59SnmOJmICIbjw">
+              <Button variant="link" >Youtube</Button>
+            </a>
+          
+        </div>
+        <div className="flex justify-center">
           <Button onClick={handleClick}>Üben Üben Üben</Button>
         </div>
       </div>

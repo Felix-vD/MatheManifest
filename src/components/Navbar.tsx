@@ -12,38 +12,50 @@ import {
   import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
 import Link from "next/link"
 import Profile from "./Profile"
-import { ModeToggle } from "./ui/toggle-mode"
-
+import { ModeToggle } from "./ui/toggle-mode";
+import useUser from '@/app/hook/useUser';
 export default function Nav() {
+    const { data } = useUser();
+
     return (
-        <NavigationMenu>
-            <NavigationMenuList>
-                <NavigationMenuItem>
-                    <Link href="/home" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            Home
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <Link href="/login" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            Login
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <Link href="/faq" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            FAQ
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <ModeToggle />
-                </NavigationMenuItem>
-                    <Profile />
-            </NavigationMenuList>
-        </NavigationMenu> 
+        <div>
+            {!data?.id ? (
+                <div>
+                    <h1>Placeholder for whats to come instead of the navbar before a user is logged in</h1>
+                </div>
+            ) : (
+                <NavigationMenu>
+                    <NavigationMenuList>
+                        <NavigationMenuItem>
+                            <Link href="/home" legacyBehavior passHref>
+                                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                    Home
+                                </NavigationMenuLink>
+                            </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <Link href="/login" legacyBehavior passHref>
+                                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                    Login
+                                </NavigationMenuLink>
+                            </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <Link href="/faq" legacyBehavior passHref>
+                                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                    FAQ
+                                </NavigationMenuLink>
+                            </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <Profile />
+                        </NavigationMenuItem>
+                    </NavigationMenuList>
+                </NavigationMenu>
+            )}
+            <div className="flex items-end justify-end mr-2">
+                <ModeToggle />
+            </div>
+        </div>
     )
 }

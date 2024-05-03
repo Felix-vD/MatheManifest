@@ -25,7 +25,6 @@ export default function RootLayout({
             <main className="max-w-6xl min-h-screen mx-auto py-10 space-y-10">
               <Navbar/>
                 {children}
-              
             </main>
           </ThemeProvider>
         </QueryProvider>
