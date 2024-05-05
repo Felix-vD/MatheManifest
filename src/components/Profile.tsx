@@ -6,7 +6,7 @@ import useUser from '@/app/hook/useUser';
 import { useQueryClient } from '@tanstack/react-query';
 import { supabaseBrowser } from '@/lib/supabase/browser';
 import { useRouter } from 'next/navigation';
-
+import Cookies from 'js-cookie';
 export default function Profile() {
     const { isFetching, data } = useUser();
     const queryClient = useQueryClient();

@@ -75,7 +75,26 @@ export async function updateSession(request: NextRequest) {
       );
     }
   }
-
+  if (data.user) {
+    response.cookies.set({
+      name: 'loggedIn',
+      value: 'true',
+      path: '/',
+      httpOnly: true, // This cookie should not be accessible via JavaScript in the browser
+      secure: process.env.NODE_ENV === 'production', // For HTTPS only
+      sameSite: 'strict'
+    });
+  } else {
+    response.cookies.set({
+      name: 'loggedIn',
+      value: 'false',
+      path: '/',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict'
+    });
+  }
+  
   console.log(url.pathname)
   await supabase.auth.getUser()
 

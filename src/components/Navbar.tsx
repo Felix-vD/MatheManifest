@@ -13,7 +13,7 @@ import {
 import Link from "next/link"
 import Profile from "./Profile"
 import { ModeToggle } from "./ui/toggle-mode"
-
+import useAuth from "@/app/hook/useAuth"
 export default function Nav() {
     return (
         <NavigationMenu>
