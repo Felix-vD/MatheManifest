@@ -27,7 +27,7 @@ export default function auth() {
     <div className="flex items-center justify-center">
         <Tabs defaultValue="signup" className="w-[800px]">
         <TabsList>
-            <TabsTrigger value="signup">SignUps</TabsTrigger>
+            <TabsTrigger value="signup">SignUp</TabsTrigger>
             <TabsTrigger value="login">Login</TabsTrigger>
         </TabsList>
         
@@ -36,7 +36,7 @@ export default function auth() {
             <CardHeader>
                 <CardTitle>SignUps</CardTitle>
                 <CardDescription>
-                If you don't have an account, you can sign up here.qqq
+                    If you don't have an account, you can sign up here.
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
