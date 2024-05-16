@@ -13,9 +13,10 @@ const initExercise = {
 }
 
 
-export default function useRandomExercise() {
+export default function useRandomExercise(timeStamp:number) {
+    
     return useQuery({
-        queryKey: ['randomExercise'],
+        queryKey: ['randomExercise', timeStamp],
         queryFn: async () => {
             const supabase = supabaseBrowser();
             const{data}= await supabase.auth.getSession();

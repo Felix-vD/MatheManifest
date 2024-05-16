@@ -1,4 +1,4 @@
-"use client"
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -6,7 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { Query } from "@tanstack/react-query";
 import QueryProvider from "@/components/query-provider";
 import Navbar from "@/components/Navbar";
-import { useEffect, useState } from "react";
+
 import Cookie from 'js-cookie';
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,19 +20,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [loggedIn, setLoggedIn] = useState(false);
+  
 
-  useEffect(() => {
-    const isAuthenticated = Cookie.get('loggedIn') === 'true';
-    setLoggedIn(isAuthenticated);
-  }, []);
+  
   return (
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="system">
             <main className="max-w-6xl min-h-screen mx-auto py-10 space-y-10">
-              {loggedIn && <Navbar />}
+              <Navbar />
                 {children}
             </main>
           </ThemeProvider>

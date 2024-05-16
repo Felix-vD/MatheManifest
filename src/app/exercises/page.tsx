@@ -4,9 +4,12 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { createBrowserClient } from '@supabase/ssr';  // Adjust the path as necessary
 import useRandomExercise from '../hook/useExercise';
-
+import { useSearchParams } from 'next/navigation';
+import Exercise from '@/components/Exercise';
 const ExercisePage: NextPage = () => {
-  const { isFetching, data } = useRandomExercise();
+  const searchParams = useSearchParams();
+  const timestamp  = searchParams.get("timestamp");
+  const { isFetching, data } = useRandomExercise(Number(timestamp));
   const [userSolution, setUserSolution] = useState('');
 
   // Check if data is loaded and not empty
@@ -28,19 +31,7 @@ const ExercisePage: NextPage = () => {
   }
 
   return (
-    <div>
-      <h1>{exercise.title}</h1>
-      <iframe src={exercise.url} style={{ width: '100%', height: '500px' }} />
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={userSolution}
-          onChange={(e) => setUserSolution(e.target.value)}
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <Exercise></Exercise>
   );
 };
 
