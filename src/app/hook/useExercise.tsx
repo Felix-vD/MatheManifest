@@ -2,15 +2,14 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabaseBrowser } from '@/lib/supabase/browser';
 
 const initExercise = {
-    id:"",
-    topic_id:"",
-    type_id:"",
-    difficulty_id:"",
-    solution:"",
-    url:"",
-    title:"",
-}
-
+    id: "",
+    topic_id: "",
+    type_id: "",
+    difficulty_id: "",
+    solution: "",
+    url: "",
+    title: "",
+};
 
 //export default function useRandomExercise(timeStamp:number) {
 export default function useRandomExercise() {    
@@ -18,10 +17,10 @@ export default function useRandomExercise() {
 
     const fetchNewExercise = async () => {
         const supabase = supabaseBrowser();
-        const { data } = await supabase.auth.getSession();
-        if (data.session?.user) {
-        const { data: exercise } = await supabase.rpc('getrandomexercise');
-        return exercise;
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (sessionData.session?.user) {
+            const { data: exerciseData } = await supabase.rpc('getrandomexercise');
+            return exerciseData;
         }
         return initExercise;
     };
@@ -35,6 +34,5 @@ export default function useRandomExercise() {
         queryClient.invalidateQueries({ queryKey: ['randomExercise'] });
     };
 
-    return { ...query, refetchExercise, fetchNewExercise 
-    }
+    return { ...query, refetchExercise, fetchNewExercise };
 }
