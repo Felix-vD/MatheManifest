@@ -23,17 +23,23 @@ import useRandomExercise from '@/app/hook/useExercise';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
-import { Link } from 'lucide-react';
 
+//use hook to fetch random exercise
+const { isFetching, data, refetchExercise } = useRandomExercise();
+const exercise = data && data.length > 0 ? data[0] : null;
+//create router manage rerouting on user actions
+const router = useRouter();
+
+//New schema for the exercise solution
 const exerciseSchema = z.object({
   solution: z
     .string()
     .min(1, "Solution must be at least 1 characters long")
     .max(25, "Solution must be at most 25 characters long"),
 });
-
+//define type of exercise schema
 type ExerciseSchema = z.infer<typeof exerciseSchema>;
-
+//define use state for dialog and set default values for solution form
 export default function Exercise() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const form = useForm<ExerciseSchema>({
@@ -42,10 +48,7 @@ export default function Exercise() {
       solution: "",
     },
   });
-
-  const { isFetching, data, refetchExercise } = useRandomExercise();
-  const exercise = data && data.length > 0 ? data[0] : null;
-  const router = useRouter();
+  
 
   if (isFetching) {
     return <div>Loading...</div>;
@@ -62,17 +65,17 @@ export default function Exercise() {
       alert('ICH HAB GESAGT DAS IST FALSCH DU BLÖDE SAU DU');
     }
   };
-
+  //handle cancel action in exercise dialog
   const handleCancel = () => {
     setIsDialogOpen(false);
     router.push('/home');
   };
-
+  //handle action in exercise dialog  
   const handleAction = () => {
     setIsDialogOpen(false);
     refetchExercise();  // Fetch a new exercise
   };
-
+  //handle skip action 
   const handleSkip = () => {
     refetchExercise();  // Fetch a new exercise
   };

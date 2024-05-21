@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function home() {
   
-  const timestamp = Date.now();
+  //const timestamp = Date.now();
   
   return (
       <div>
@@ -22,7 +22,7 @@ export default function home() {
         <Button asChild>
           <Link href={{
             pathname: '/exercises',
-            query: { timestamp : timestamp.toString() } 
+            //query: { timestamp : timestamp.toString() } 
           }}>Aufgabe Üben</Link>
         </Button>
         </div>
