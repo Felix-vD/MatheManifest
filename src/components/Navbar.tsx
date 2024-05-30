@@ -16,7 +16,6 @@ import { ModeToggle } from "./ui/toggle-mode";
 import useUser from '@/app/hook/useUser';
 export default function Nav() {
     const { data } = useUser();
-
     return (
         <div>
             {!data?.id ? (

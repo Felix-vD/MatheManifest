@@ -1,5 +1,5 @@
 "use client"
-import { supabaseBrowser } from '@/lib/supabase/browser';
+import { createClient } from '@utils/supabase/clients';
 import { useQuery } from '@tanstack/react-query';
 import { FaDisplay } from 'react-icons/fa6';
 
@@ -18,7 +18,7 @@ export default function useUser() {
         queryKey: ['user'],
         // The queryFn is called to fetch the data for the query.
         queryFn: async ()=>{
-            const supabase = supabaseBrowser();
+            const supabase = createClient();
             const{data} = await supabase.auth.getSession();
             //? is equivalent to if(data && data.session && data.session.user), checking if data.session.user exists, if not it
             //short circuits and returns null

@@ -4,9 +4,10 @@ import {Button} from "./ui/button";
 import Link from 'next/link';
 import useUser from '@/app/hook/useUser';
 import { useQueryClient } from '@tanstack/react-query';
-import { supabaseBrowser } from '@/lib/supabase/browser';
+import { createClient } from '@utils/supabase/clients';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+
 export default function Profile() {
     const { isFetching, data } = useUser();
     const queryClient = useQueryClient();
@@ -18,10 +19,11 @@ export default function Profile() {
     const handleLogout = async () => {
         //call the signOut method from the auth object
         //this will sign out the current user
-        const supabase = supabaseBrowser();
+        const supabase = createClient();
         queryClient.clear();
         await supabase.auth.signOut();
         router.refresh();
+        router.push('/');
     }
 
 

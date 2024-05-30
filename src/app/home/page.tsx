@@ -18,7 +18,7 @@ export default function home() {
             </a>
           
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center min-h-screen">
         <Button asChild>
           <Link href={{
             pathname: '/exercises',

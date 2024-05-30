@@ -8,8 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/alert-dialog";
 interface AlertDialogDemoProps {
   title: string;
   description: string;
@@ -34,8 +33,8 @@ export function AlertDialogDemo({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onCancel}>kleiner Penis</AlertDialogCancel>
-          <AlertDialogAction onClick={onAction}>grosser Penis</AlertDialogAction>
+          <AlertDialogCancel onClick={onCancel}>I quit</AlertDialogCancel>
+          <AlertDialogAction onClick={onAction}>Next Please</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -117,7 +117,7 @@ export default function Exercise() {
                         <Input placeholder="Gib hier deine Lösung ein." {...field} />
                       </FormControl>
                       <Button type="submit" className="flex-none">Submit</Button>
-                      <Button type="button" onClick={handleSkip}>Skip Exercise</Button>
+                      <Button variant="secondary" type="button" onClick={handleSkip}>Skip Exercise</Button>
                     </FormItem>
                     <FormMessage />
                   </>
