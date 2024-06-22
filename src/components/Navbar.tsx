@@ -11,7 +11,7 @@ import {
   } from "@/components/ui/navigation-menu"
   import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
 import Link from "next/link"
-import Profile from "./Profile"
+import Avatar from "./Avatar"
 import { ModeToggle } from "./ui/toggle-mode";
 import useUser from '@/app/hook/useUser';
 export default function Nav() {
@@ -47,7 +47,14 @@ export default function Nav() {
                             </Link>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                            <Profile />
+                            <Link href="/profile" legacyBehavior passHref>
+                                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                    Profile
+                                </NavigationMenuLink>
+                            </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <Avatar />
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>

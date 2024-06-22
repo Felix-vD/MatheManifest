@@ -8,7 +8,7 @@ import { createClient } from '@utils/supabase/clients';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
-export default function Profile() {
+export default function Avatar() {
     const { isFetching, data } = useUser();
     const queryClient = useQueryClient();
     const router = useRouter();
