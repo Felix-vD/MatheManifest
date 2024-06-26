@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react"
-
+import { Meteors } from "@/components/ui/meteors";
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -39,6 +39,7 @@ export function ExerciseType1() {
             //query: { timestamp : timestamp.toString() } 
           }}>Random Exercise</Link>
         </Button>
+        
       </CardContent>
       
     </Card>

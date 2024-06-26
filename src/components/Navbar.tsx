@@ -17,7 +17,7 @@ import useUser from '@/app/hook/useUser';
 export default function Nav() {
     const { data } = useUser();
     return (
-        <div>
+        <div >
             {!data?.id ? (
                 <div>
                     <h1>Placeholder for whats to come instead of the navbar before a user is logged in</h1>
