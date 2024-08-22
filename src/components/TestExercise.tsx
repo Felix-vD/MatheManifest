@@ -19,28 +19,31 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { AlertDialogDemo } from '@/components/ExerciseModal';
-import useRandomExercise from '@/app/hook/useExercise';
+import useRandomTestExercise from '@/app/hook/useTestExercise';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 
+
+type Exercise = {
+  name: string;
+  solution: (string | number)[][]; // Array of arrays of strings or numbers
+};
 // New schema for the exercise solution
 const exerciseSchema = z.object({
-  solution: z
-    .string()
-    .min(1, "Solution must be at least 1 characters long")
-    .max(25, "Solution must be at most 25 characters long"),
+  solution: z.array(
+    z.array(z.string().min(1, "Solution must be at least 1 character long"))
+  ),
 });
-
 // Define type of exercise schema
 type ExerciseSchema = z.infer<typeof exerciseSchema>;
 
 // Define use state for dialog and set default values for solution form
-export default function Exercise() {
-  const { isFetching, data, refetchExercise } = useRandomExercise();
-  console.log(data)
-  const exercise = data && data.length > 0 ? data[0] : null;
-  console.log(exercise)
+export default function TestExercise() {
+  const { isFetching, data, refetchExercise } = useRandomTestExercise();
+  console.log(data);
+  const exercise = data || null;
+  console.log(exercise);
   // Create router manage rerouting on user actions
   const router = useRouter();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -49,9 +52,12 @@ export default function Exercise() {
   const form = useForm<ExerciseSchema>({
     resolver: zodResolver(exerciseSchema),
     defaultValues: {
-      solution: "",
+      solution: exercise?.int_array.map((row: number[]) => row.map(() => "")) || [],
     },
   });
+  
+  
+  
 
   // Display loading state
   if (isFetching) {
@@ -60,6 +66,7 @@ export default function Exercise() {
 
   // Display message if no exercise found
   if (!exercise) {
+    
     return <div>No exercise found.</div>;
   }
 
@@ -103,27 +110,55 @@ export default function Exercise() {
           <iframe src={exercise.url} width="100%" height="600px" />
         </CardContent>
         <CardFooter>
-          <Form {...form}>
+        <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="solution"
-                render={({ field }) => (
-                  <>
-                    <FormItem className="block">
-                      <FormLabel>Lösung</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center gap-3">
-                      <FormControl className="flex-grow">
-                        <Input placeholder="Gib hier deine Lösung ein." {...field} />
-                      </FormControl>
-                      <Button type="submit" className="flex-none">Submit</Button>
-                      <Button variant="secondary" type="button" onClick={handleSkip}>Skip Exercise</Button>
-                    </FormItem>
-                    <FormMessage />
-                  </>
-                )}
-              />
+            {exercise.int_array.map((row: number[], rowIndex: number) => (
+  <div key={rowIndex} className="mb-4">
+    <div><strong>Aufgabe {rowIndex + 1}:</strong></div>
+    {row.map((solution: number, colIndex: number) => (
+      <FormField
+        key={colIndex}
+        control={form.control}
+        name={`solution.${rowIndex}.${colIndex}`}
+        render={({ field }) => (
+          <>
+            <FormItem className="block">
+              <FormLabel>
+                {String.fromCharCode(97 + colIndex)}) Lösung {colIndex + 1}
+              </FormLabel>
+            </FormItem>
+            <FormItem className="flex items-center gap-3">
+              <FormControl className="flex-grow">
+                <Input
+                  placeholder={`Gib die Lösung für ${String.fromCharCode(97 + colIndex)}) ein.`}
+                  {...field}
+                />
+              </FormControl>
+              <Button
+                type="button"
+                onClick={() => {
+                  if (field.value === String(solution)) {
+                    alert(`Correct solution for Aufgabe ${rowIndex + 1}, part ${String.fromCharCode(97 + colIndex)}`);
+                  } else {
+                    alert(`Incorrect solution for Aufgabe ${rowIndex + 1}, part ${String.fromCharCode(97 + colIndex)}`);
+                  }
+                }}
+              >
+                Check Solution
+              </Button>
+            </FormItem>
+            <FormMessage />
+          </>
+        )}
+      />
+    ))}
+  </div>
+))}
+
+              <Button type="submit" className="mt-4">Final Submit</Button>
+              <Button variant="secondary" type="button" onClick={handleSkip} className="ml-2">
+                Skip Exercise
+              </Button>
             </form>
           </Form>
         </CardFooter>
