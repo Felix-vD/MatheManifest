@@ -17,11 +17,11 @@ import useUser from '@/app/hook/useUser';
 export default function Nav() {
     const { data } = useUser();
     return (
-        <div >
+        <>
             {!data?.id ? (
-                <div>
-                    <h1>Placeholder for whats to come instead of the navbar before a user is logged in</h1>
-                </div>
+                <>
+                    
+                </>
             ) : (
                 <NavigationMenu>
                     <NavigationMenuList>
@@ -54,14 +54,22 @@ export default function Nav() {
                             </Link>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
+                            <Link href="/about" legacyBehavior passHref>
+                                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                    AboutUs
+                                </NavigationMenuLink>
+                            </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
                             <Avatar />
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <ModeToggle />
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
             )}
-            <div className="flex items-end justify-end mr-2">
-                <ModeToggle />
-            </div>
-        </div>
+            
+        </>
     )
 }
