@@ -28,10 +28,10 @@ const projects = [
     link: "https://google.com",
   },
   {
-    title: "Meta",
+    title: "Pornhub",
     description:
-      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-    link: "https://meta.com",
+      "Wenn ihr ... naja ihr wisst schon...",
+    link: "https://pornhub-deutsch.net/",
   },
   {
     title: "Amazon",

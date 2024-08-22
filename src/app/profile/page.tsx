@@ -22,6 +22,7 @@ export default function profile() {
                     <div>
                         <DialogDemo></DialogDemo>
                     </div>
+                
                 </CardContent>
             </Card>
         </div>
