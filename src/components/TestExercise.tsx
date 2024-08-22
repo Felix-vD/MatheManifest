@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, useFieldArray, } from "react-hook-form";
 import { z } from "zod";
 import {
   Card,
@@ -25,153 +25,126 @@ import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 
 
-type Exercise = {
-  name: string;
-  solution: (string | number)[][]; // Array of arrays of strings or numbers
-};
+// type Exercise = {
+//   name: string;
+//   solution: (string | number)[][]; // Array of arrays of strings or numbers
+// };
 // New schema for the exercise solution
 const exerciseSchema = z.object({
   solution: z.array(
-    z.array(z.string().min(1, "Solution must be at least 1 character long"))
+    z.array(
+      z
+        .string()
+        .transform((val) => parseFloat(val))
+        .refine((val) => !isNaN(val), {
+          message: "Must be a number",
+        })
+    )
   ),
 });
+
 // Define type of exercise schema
 type ExerciseSchema = z.infer<typeof exerciseSchema>;
 
+
 // Define use state for dialog and set default values for solution form
 export default function TestExercise() {
-  const { isFetching, data, refetchExercise } = useRandomTestExercise();
-  console.log(data);
-  const exercise = data || null;
-  console.log(exercise);
-  // Create router manage rerouting on user actions
-  const router = useRouter();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  
+  const { isFetching, data } = useRandomTestExercise();
+  console.log(data?.int_array);
+  // Define the expected type for the data
+  type SolutionArrayType = number[][];
+  const solutionArray: SolutionArrayType = data?.int_array ;
+  
   // Set up form with React Hook Form and Zod validation
   const form = useForm<ExerciseSchema>({
     resolver: zodResolver(exerciseSchema),
+    mode:  "onBlur",
     defaultValues: {
-      solution: exercise?.int_array.map((row: number[]) => row.map(() => "")) || [],
+      solution: solutionArray || [], // Set default values to the solution array
     },
   });
   
-  
-  
+  const { fields, append } = useFieldArray({
+    name: "solution", // The correct key for useFieldArray
+    control: form.control,
+  });
 
-  // Display loading state
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
+ const onSubmit = (values: ExerciseSchema) => {
+    console.log(values);
+  };
+  const checkAnswer = (
+    exerciseIndex: number,
+    subExerciseIndex: number,
+    userInput: string
+  ): string | null => {
+    const correctValue = solutionArray[exerciseIndex]?.[subExerciseIndex];
+    if (correctValue === undefined) return null;
 
-  // Display message if no exercise found
-  if (!exercise) {
-    
-    return <div>No exercise found.</div>;
-  }
-
-  // Handle form submission
-  const onSubmit: SubmitHandler<ExerciseSchema> = (values) => {
-    if (values.solution === exercise?.solution) {
-      setIsDialogOpen(true);
-    } else {
-      alert('ICH HAB GESAGT DAS IST FALSCH DU BLÖDE SAU DU');
-      form.reset();
-    }
+    const numericInput = parseFloat(userInput);
+    return numericInput === correctValue
+      ? 'Correct!'
+      : ``;
   };
 
-  // Handle cancel action in exercise dialog
-  const handleCancel = () => {
-    setIsDialogOpen(false);
-    router.push('/home');
-  };
-
-  // Handle action in exercise dialog
-  const handleAction = () => {
-    setIsDialogOpen(false);
-    refetchExercise(); // Fetch a new exercise
-    form.reset();  
-  };
-
-  // Handle skip action
-  const handleSkip = () => {
-    refetchExercise(); // Fetch a new exercise
-    form.reset();  
-  };
-
+  const labels = ['a)', 'b)', 'c)', 'd)', 'e)', 'f)', 'g)', 'h)', 'i)', 'j)'];
+ 
   return (
-    <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>{exercise.title}</CardTitle>
-          <CardDescription>{exercise.description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <iframe src={exercise.url} width="100%" height="600px" />
-        </CardContent>
-        <CardFooter>
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {exercise.int_array.map((row: number[], rowIndex: number) => (
-  <div key={rowIndex} className="mb-4">
-    <div><strong>Aufgabe {rowIndex + 1}:</strong></div>
-    {row.map((solution: number, colIndex: number) => (
-      <FormField
-        key={colIndex}
-        control={form.control}
-        name={`solution.${rowIndex}.${colIndex}`}
-        render={({ field }) => (
-          <>
-            <FormItem className="block">
-              <FormLabel>
-                {String.fromCharCode(97 + colIndex)}) Lösung {colIndex + 1}
-              </FormLabel>
-            </FormItem>
-            <FormItem className="flex items-center gap-3">
-              <FormControl className="flex-grow">
-                <Input
-                  placeholder={`Gib die Lösung für ${String.fromCharCode(97 + colIndex)}) ein.`}
-                  {...field}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        {solutionArray?.map((exercise, exerciseIndex) => (
+          <Card key={exerciseIndex}>
+            <CardHeader>
+              <CardTitle>Aufgabe {exerciseIndex + 1}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {exercise.map((_, subExerciseIndex) => (
+                <FormField
+                  key={subExerciseIndex}
+                  control={form.control}
+                  name={`solution.${exerciseIndex}.${subExerciseIndex}`}
+                  render={({ field }) => {
+                    // Here we pass `field.value` as a string, which is the correct type.
+                    const feedbackMessage = checkAnswer(exerciseIndex, subExerciseIndex, field.value);
+                    return (
+                      <FormItem>
+                        <FormLabel>{labels[subExerciseIndex]}</FormLabel>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <FormControl>
+                            <Input {...field} type="number" />
+                          </FormControl>
+                          <Button
+                            type="button"
+                            onClick={() => {
+                              // Trigger validation and feedback rendering
+                              form.trigger(`solution.${exerciseIndex}.${subExerciseIndex}`);
+                            }}
+                            style={{ marginLeft: '10px' }}
+                          >
+                            Check
+                          </Button>
+                        </div>
+                        <FormMessage />
+                        {feedbackMessage && (
+                          <div style={{ 
+                            marginTop: '5px',
+                            color: feedbackMessage.startsWith('Correct') ? 'green' : 'red',      
+                            height: '1em', // Fixed height to maintain space
+                            lineHeight: '1em',  }}>
+                            {feedbackMessage}
+                          </div>
+                        )}
+                      </FormItem>
+                    );
+                  }}
                 />
-              </FormControl>
-              <Button
-                type="button"
-                onClick={() => {
-                  if (field.value === String(solution)) {
-                    alert(`Correct solution for Aufgabe ${rowIndex + 1}, part ${String.fromCharCode(97 + colIndex)}`);
-                  } else {
-                    alert(`Incorrect solution for Aufgabe ${rowIndex + 1}, part ${String.fromCharCode(97 + colIndex)}`);
-                  }
-                }}
-              >
-                Check Solution
-              </Button>
-            </FormItem>
-            <FormMessage />
-          </>
-        )}
-      />
-    ))}
-  </div>
-))}
+              ))}
+            </CardContent>
+          </Card>
+        ))}
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
 
-              <Button type="submit" className="mt-4">Final Submit</Button>
-              <Button variant="secondary" type="button" onClick={handleSkip} className="ml-2">
-                Skip Exercise
-              </Button>
-            </form>
-          </Form>
-        </CardFooter>
-      </Card>
-      
-      <AlertDialogDemo
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        title="Gold richtig minjung!"
-        description="Willst du noch eine Aufgabe machen?"
-        onCancel={handleCancel}
-        onAction={handleAction}
-      />
-    </div>
   );
 }
