@@ -1,3 +1,4 @@
+"use client";
 import { login, signup } from './actions'
 import {
   Form,
