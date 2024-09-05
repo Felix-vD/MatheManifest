@@ -3,11 +3,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { Query } from "@tanstack/react-query";
 import QueryProvider from "@/components/query-provider";
 import Navbar from "@/components/Navbar";
 
-import Cookie from 'js-cookie';
 
 const inter = Inter({ subsets: ["latin"] });
 
