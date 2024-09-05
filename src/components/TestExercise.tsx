@@ -76,12 +76,12 @@ export default function TestExercise() {
   const checkAnswer = (
     exerciseIndex: number,
     subExerciseIndex: number,
-    userInput: string
+    userInput: number
   ): string | null => {
     const correctValue = solutionArray[exerciseIndex]?.[subExerciseIndex];
     if (correctValue === undefined) return null;
 
-    const numericInput = parseFloat(userInput);
+    const numericInput = userInput;
     return numericInput === correctValue
       ? 'Correct!'
       : ``;
