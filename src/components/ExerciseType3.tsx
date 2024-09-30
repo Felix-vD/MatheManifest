@@ -27,7 +27,7 @@ export function ExerciseType3() {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </CardTitle>
-        <CardDescription>Have you mastered all elements of mathematics? Let's fight the Abitur Exam and find out what you are made of!</CardDescription>
+        <CardDescription>Have you mastered all elements of mathematics? Let&apos;s fight the Abitur Exam and find out what you are made of!</CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center items-center">
       <Button asChild>

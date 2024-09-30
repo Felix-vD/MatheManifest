@@ -1,8 +1,4 @@
-//If changes to db structure are made run these:
-//npx supabase login
-//npx supabase gen types typescript --project-id "$PROJECT_REF" --schema public > types/supabase.ts
-//$PROJECT_REF is in supabase settings
-export type Json =
+﻿export type Json =
   | string
   | number
   | boolean
@@ -30,34 +26,33 @@ export type Database = {
       }
       Exercises: {
         Row: {
-          difficulty_id: number | null
           id: number
+          points: number | null
           solution: string | null
+          title: string | null
           topic_id: number
           type_id: number | null
+          url: string | null
         }
         Insert: {
-          difficulty_id?: number | null
           id?: number
+          points?: number | null
           solution?: string | null
+          title?: string | null
           topic_id: number
           type_id?: number | null
+          url?: string | null
         }
         Update: {
-          difficulty_id?: number | null
           id?: number
+          points?: number | null
           solution?: string | null
+          title?: string | null
           topic_id?: number
           type_id?: number | null
+          url?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "public_Exercises_difficulty_id_fkey"
-            columns: ["difficulty_id"]
-            isOneToOne: false
-            referencedRelation: "Difficulty"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "public_Exercises_topic_id_fkey"
             columns: ["topic_id"]
@@ -91,35 +86,91 @@ export type Database = {
       }
       profiles: {
         Row: {
+          analysisnote: number | null
           created_at: string
           display_name: string | null
-          email: string
+          email: string | null
+          geometrienote: number | null
+          gesamtnote: number | null
           id: string
           image_url: string | null
+          stochastiknote: number | null
         }
         Insert: {
+          analysisnote?: number | null
           created_at?: string
           display_name?: string | null
-          email: string
-          id: string
-          image_url?: string | null
-        }
-        Update: {
-          created_at?: string
-          display_name?: string | null
-          email?: string
+          email?: string | null
+          geometrienote?: number | null
+          gesamtnote?: number | null
           id?: string
           image_url?: string | null
+          stochastiknote?: number | null
+        }
+        Update: {
+          analysisnote?: number | null
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          geometrienote?: number | null
+          gesamtnote?: number | null
+          id?: string
+          image_url?: string | null
+          stochastiknote?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "public_profiles_id_fkey"
+            foreignKeyName: "profiles_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
+      }
+      progress: {
+        Row: {
+          id: string
+          level: number | null
+          xp: number | null
+        }
+        Insert: {
+          id: string
+          level?: number | null
+          xp?: number | null
+        }
+        Update: {
+          id?: string
+          level?: number | null
+          xp?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "muffinman_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      TestExercise: {
+        Row: {
+          id: number
+          name: string | null
+          solutions: number[] | null
+        }
+        Insert: {
+          id?: number
+          name?: string | null
+          solutions?: number[] | null
+        }
+        Update: {
+          id?: number
+          name?: string | null
+          solutions?: number[] | null
+        }
+        Relationships: []
       }
       Topics: {
         Row: {
@@ -139,18 +190,30 @@ export type Database = {
         }
         Relationships: []
       }
-      user: {
+      xp: {
         Row: {
           id: number
-          name: string | null
+          "level 1": number
+          "level 2": number | null
+          "level 3": number | null
+          "level 4": number | null
+          "level 5": number | null
         }
         Insert: {
           id?: number
-          name?: string | null
+          "level 1"?: number
+          "level 2"?: number | null
+          "level 3"?: number | null
+          "level 4"?: number | null
+          "level 5"?: number | null
         }
         Update: {
           id?: number
-          name?: string | null
+          "level 1"?: number
+          "level 2"?: number | null
+          "level 3"?: number | null
+          "level 4"?: number | null
+          "level 5"?: number | null
         }
         Relationships: []
       }
@@ -159,13 +222,44 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_random_exercise: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: number
+          topic_id: number
+          type_id: number
+          difficulty_id: number
+          solution: string
+          url: string
+          title: string
+        }[]
+      }
+      get_test_exercise: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["CompositeTypes"]["test_exercise_type"]
+      }
+      getrandomexercise: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: number
+          points: number | null
+          solution: string | null
+          title: string | null
+          topic_id: number
+          type_id: number | null
+          url: string | null
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
     }
     CompositeTypes: {
-      [_ in never]: never
+      test_exercise_type: {
+        id: number | null
+        name: string | null
+        int_array: number[] | null
+      }
     }
   }
 }
