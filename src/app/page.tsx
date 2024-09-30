@@ -14,6 +14,7 @@ import { createClient } from "@utils/supabase/clients";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareGithub } from "react-icons/fa6";
 import Link from "next/link";
+import WelcomePage from "./welcome/page";
 export default function Home() {
   // const setNewUser = async () => {
   //   const { data, error } = await supabase
@@ -69,12 +70,7 @@ export default function Home() {
     // </div>
 
     <div className="flex justify-center items-center" >
-      <Button asChild >
-          <Link href={{
-            pathname: '/auth',
-           
-          }}>Login/SignUp</Link>
-        </Button>
+      <WelcomePage></WelcomePage>
     </div>
   );
 }

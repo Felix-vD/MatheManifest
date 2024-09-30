@@ -23,7 +23,7 @@ import useRandomTestExercise from '@/app/hook/useTestExercise';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
-
+import { createExerciseUI, checkSolution, submitAll } from '@/lib/exerciseRender';
 
 type Exercise = {
   name: string;
@@ -112,53 +112,25 @@ export default function TestExercise() {
         <CardFooter>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {exercise.int_array.map((row: number[], rowIndex: number) => (
-  <div key={rowIndex} className="mb-4">
-    <div><strong>Aufgabe {rowIndex + 1}:</strong></div>
-    {row.map((solution: number, colIndex: number) => (
-      <FormField
-        key={colIndex}
-        control={form.control}
-        name={`solution.${rowIndex}.${colIndex}`}
-        render={({ field }) => (
-          <>
-            <FormItem className="block">
-              <FormLabel>
-                {String.fromCharCode(97 + colIndex)}) Lösung {colIndex + 1}
-              </FormLabel>
-            </FormItem>
-            <FormItem className="flex items-center gap-3">
-              <FormControl className="flex-grow">
-                <Input
-                  placeholder={`Gib die Lösung für ${String.fromCharCode(97 + colIndex)}) ein.`}
-                  {...field}
-                />
-              </FormControl>
-              <Button
-                type="button"
-                onClick={() => {
-                  if (field.value === String(solution)) {
-                    alert(`Correct solution for Aufgabe ${rowIndex + 1}, part ${String.fromCharCode(97 + colIndex)}`);
-                  } else {
-                    alert(`Incorrect solution for Aufgabe ${rowIndex + 1}, part ${String.fromCharCode(97 + colIndex)}`);
-                  }
-                }}
-              >
-                Check Solution
-              </Button>
-            </FormItem>
-            <FormMessage />
-          </>
-        )}
-      />
-    ))}
-  </div>
-))}
-
-              <Button type="submit" className="mt-4">Final Submit</Button>
-              <Button variant="secondary" type="button" onClick={handleSkip} className="ml-2">
-                Skip Exercise
-              </Button>
+              <FormField
+                control={form.control}
+                name="solution"
+                render={({ field }) => (
+                  <>
+                    <FormItem className="block">
+                      <FormLabel>Lösung</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center gap-3">
+                      <FormControl className="flex-grow">
+                        <Input placeholder="Gib hier deine Lösung ein." {...field} />
+                      </FormControl>
+                      <Button type="submit" className="flex-none">Submit</Button>
+                      <Button variant="secondary" type="button" onClick={handleSkip}>Skip Exercise</Button>
+                    </FormItem>
+                    <FormMessage />
+                  </>
+                )}
+              />
             </form>
           </Form>
         </CardFooter>

@@ -1,11 +1,12 @@
 
+
 import { FlipWords } from "@/components/ui/flip-words";
 import React from "react";
 import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { LinkPreview } from "@/components/ui/link-preview";
-export default function welcome() {
+export default function welcomePage() {
     const words = ["Vektoren", "Analysis", "Stochastik"];
  
   return (
