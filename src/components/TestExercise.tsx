@@ -90,53 +90,6 @@ export default function TestExercise() {
   const labels = ['a)', 'b)', 'c)', 'd)', 'e)', 'f)', 'g)', 'h)', 'i)', 'j)'];
  
   return (
-<<<<<<< HEAD
-    <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>{exercise.title}</CardTitle>
-          <CardDescription>{exercise.description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <iframe src={exercise.url} width="100%" height="600px" />
-        </CardContent>
-        <CardFooter>
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="solution"
-                render={({ field }) => (
-                  <>
-                    <FormItem className="block">
-                      <FormLabel>Lösung</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center gap-3">
-                      <FormControl className="flex-grow">
-                        <Input placeholder="Gib hier deine Lösung ein." {...field} />
-                      </FormControl>
-                      <Button type="submit" className="flex-none">Submit</Button>
-                      <Button variant="secondary" type="button" onClick={handleSkip}>Skip Exercise</Button>
-                    </FormItem>
-                    <FormMessage />
-                  </>
-                )}
-              />
-            </form>
-          </Form>
-        </CardFooter>
-      </Card>
-      
-      <AlertDialogDemo
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        title="Gold richtig minjung!"
-        description="Willst du noch eine Aufgabe machen?"
-        onCancel={handleCancel}
-        onAction={handleAction}
-      />
-    </div>
-=======
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         {solutionArray?.map((exercise, exerciseIndex) => (
@@ -193,6 +146,5 @@ export default function TestExercise() {
       </form>
     </Form>
 
->>>>>>> d9cf169b45a705d382a612e7cd37f9e61c5134f7
   );
 }
