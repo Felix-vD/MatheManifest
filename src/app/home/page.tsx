@@ -17,11 +17,7 @@ export default function home() {
     
     
       <div>
-        <h1>Home Page</h1>
-        <div>Fange an zu üben oder schaue dir unsere Videos an -{'>'}
-            <a href="https://www.youtube.com/channel/UC-kerZk2Q59SnmOJmICIbjw">
-              <Button variant="link" >Youtube</Button> 
-            </a>
+        <h1 className="text-align:center font-size: 40px"><b>Home Page</b></h1>
             <div className="flex justify-center items-center min-h-screen">
               <div className="flex space-x-6">
                 
@@ -35,7 +31,7 @@ export default function home() {
         
         
 
-      </div>
+      
       
       
     );
