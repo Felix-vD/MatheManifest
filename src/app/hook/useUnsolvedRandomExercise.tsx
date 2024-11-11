@@ -12,28 +12,33 @@ const initExercise = {
 };
 
 //export default function useRandomExercise(timeStamp:number) {
-export default function useRandomExercise() {    
+export default function getUnsolvedExercise() { 
     const queryClient = useQueryClient();
-    
-    const fetchNewExercise = async () => {
+
+    const fetchUnsolvedExercise = async () => {
         const supabase = supabaseBrowser();
         const { data: sessionData } = await supabase.auth.getSession();
         if (sessionData.session?.user) {
-            const { data: exerciseData } = await supabase.rpc('get_random_exercise');
-            console.log("dis da exercise data", exerciseData);
+            
+            const { data: exerciseData } = await supabase.rpc('get_unsolved_exercise', {
+                user_uuid: sessionData.session.user.id  // Assuming 'user_id' is the parameter expected by your function
+            });
+            
             return exerciseData;
+
         }
         return initExercise;
     };
 
     const query = useQuery({
-        queryKey: ['randomExercise'],
-        queryFn: fetchNewExercise,
+        //key to identify the query in the cache
+        queryKey: ['randomUnsolvedExercise'],
+        queryFn: fetchUnsolvedExercise,
     });
 
     const refetchExercise = () => {
-        queryClient.invalidateQueries({ queryKey: ['randomExercise'] });
+        queryClient.invalidateQueries({ queryKey: ['randomUnsolvedExercise'] });
     };
 
-    return { ...query, refetchExercise, fetchNewExercise };
+    return { ...query, refetchExercise, fetchUnsolvedExercise };
 }

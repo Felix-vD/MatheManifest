@@ -47,11 +47,10 @@ const exerciseSchema = z.object({
 type ExerciseSchema = z.infer<typeof exerciseSchema>;
 
 
-// Define use state for dialog and set default values for solution form
 export default function TestExercise() {
   
   const { isFetching, data } = useRandomTestExercise();
-  console.log(data?.int_array);
+  
   // Define the expected type for the data
   type SolutionArrayType = number[][];
   const solutionArray: SolutionArrayType = data?.int_array ;

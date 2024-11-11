@@ -29,7 +29,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system">
           
             <main className="max-w-8xl min-h-screen mx-auto  space-y-10">
-              <Navbar />
+              
                 {children}
             </main>
             

@@ -34,3 +34,18 @@ export function createClient() {
     }
   )
 }
+export async function updateAvatar(userId: string, newAvatarUrl: string) {
+  const supabase = createClient();
+
+  // Update the avatar_url in the profiles table
+  const { error } = await supabase
+    .from('profiles') // Your profiles table
+    .update({ avatar: newAvatarUrl }) // Update avatar field
+    .eq('id', userId); // Filter by authenticated user's id
+
+  if (error) {
+    throw new Error('Error updating avatar: ' + error.message);
+  }
+
+  return true; // Return success
+}

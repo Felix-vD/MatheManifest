@@ -58,6 +58,9 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        indigo: "rgb(34, 73, 132)",  // Indigo color
+        bordeaux: "rgb(132, 34, 73)", // Bordeaux color
+        smaragd: "rgb(34, 132, 93)",  // Smaragd color
       },
       borderRadius: {
         lg: "var(--radius)",

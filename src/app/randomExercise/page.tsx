@@ -1,12 +1,8 @@
 "use client"
 // pages/exercise/[id].tsx
 import { GetServerSideProps, NextPage } from 'next';
-import { useEffect, useState } from 'react';
-import { createBrowserClient } from '@supabase/ssr';  // Adjust the path as necessary
-import useRandomExercise from '../hook/useExercise';
-import { useSearchParams } from 'next/navigation';
 import Exercise from '@/components/Exercise';
-import { EnhancedExerciseComponent } from '@/components/enhanced-exercise';
+import UnsolvedRandomExercise from '@/components/UnsolvedRandomExercise';
 const ExercisePage: NextPage = () => {
   
 
@@ -16,7 +12,7 @@ const ExercisePage: NextPage = () => {
   
 
   return (
-     <Exercise></Exercise>
+     <UnsolvedRandomExercise></UnsolvedRandomExercise>
     //<EnhancedExerciseComponent></EnhancedExerciseComponent>
   );
 };

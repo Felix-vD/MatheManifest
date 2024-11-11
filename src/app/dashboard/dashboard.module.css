@@ -1,0 +1,11 @@
+.container {
+     /* or inline-flex */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: baseline;
+    
+  }
+
+.item{
+    flex-basis: 100%;
+}

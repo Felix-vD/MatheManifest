@@ -1,14 +1,16 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import React, { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const FlipWords = ({
   words,
+  colors = [],
   duration = 3000,
   className,
 }: {
   words: string[];
+  colors?: string[];
   duration?: number;
   className?: string;
 }) => {
@@ -28,6 +30,10 @@ export const FlipWords = ({
         startAnimation();
       }, duration);
   }, [isAnimating, duration, startAnimation]);
+
+  // Get the current word's color from the colors array (fallback to default if not provided)
+  const currentWordIndex = words.indexOf(currentWord);
+  const currentColor = colors[currentWordIndex] || "inherit";
 
   return (
     <AnimatePresence
@@ -62,6 +68,7 @@ export const FlipWords = ({
           className
         )}
         key={currentWord}
+        style={{ color: currentColor }} // Apply the color dynamically
       >
         {currentWord.split("").map((letter, index) => (
           <motion.span

@@ -18,13 +18,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { Celebration } from '@/components/celebration'
 import { AlertDialogDemo } from '@/components/ExerciseModal'
-import useRandomExercise from '@/app/hook/useExercise'
+import getUnsolvedExercise from '@/app/hook/useUnsolvedRandomExercise'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import useUser from '@/app/hook/useUser'
-import { useUpdateTotalSolved } from '@/app/hook/useIncrementRanking';
 // New schema for the exercise solution
 const exerciseSchema = z.object({
   solution: z
@@ -32,18 +32,17 @@ const exerciseSchema = z.object({
     .min(1, "Solution must be at least 1 character long")
     .max(25, "Solution must be at most 25 characters long"),
 })
-
+ 
 // Define type of exercise schema
 type ExerciseSchema = z.infer<typeof exerciseSchema>
 
 export default function Exercise() {
+  
   const { isFetching: isFetchingUser, data: userData } = useUser();
-
   
   // Fetch the exercise data
-  const { isFetching, data, refetchExercise } = useRandomExercise()
-  //get hook to increment total solved exercises
-  const { updateTotalSolved } = useUpdateTotalSolved();
+  const { isFetching, data, refetchExercise } = getUnsolvedExercise()
+  
   // Check if exercise data is received
   const exercise = data && data.length > 0 ? data[0] : null
   
@@ -64,21 +63,31 @@ export default function Exercise() {
   
   // Handle form submission
   const onSubmit: SubmitHandler<ExerciseSchema> = async (values) => {
-    
     if (values.solution === exercise?.solution) {
       
       try {
         
-       await updateTotalSolved(userData?.id);
+        const response = await fetch('/api/exercise', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          
+          body: JSON.stringify({ userId: userData?.id, exerciseId: exercise.id, status: 'solved',
+             exerciseTopic: exercise.topic_id, exerciseType: exercise.type_id, }),
+        });
   
-        
+        const result = await response.json();
+  
+        if (response.ok) {
           console.log("Exercise saved successfully");
           setIsDialogOpen(true);
-          console.log("Exercise solved successfully");
-          setIsDialogOpen(true);
-        } catch (error) {
-          console.error('Error incrementing total solved count:', error);
+        } else {
+          console.error('Error saving exercise:', result.error);
         }
+      } catch (error) {
+        console.error('Error submitting exercise:', error);
+      }
     } else {
       alert('ICH HAB GESAGT DAS IST FALSCH DU BLÖDE SAU DU');
       form.reset();
@@ -112,7 +121,7 @@ export default function Exercise() {
   
   // Display message if no exercise found
   if (!exercise) {
-    return <div>No exercise found.</div>
+    return <Celebration></Celebration>
   }
 
   return (

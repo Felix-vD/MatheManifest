@@ -1,37 +1,30 @@
 "use client"
 import { createClient } from '@utils/supabase/clients';
 import { useQuery } from '@tanstack/react-query';
-import { FaDisplay } from 'react-icons/fa6';
 
-const initUser = {
-    created_at: "",
-    display_name: "",
-    email: "",
-    id: "",
-    image_url: "",
-    avatar: "",
-    grade: "",
-    calculator: ""
-}
+const ranking = {
+    total_solved: 0,
+};
 
-export default function useUser() {
+export default function useRanking() {
     return useQuery({
         // The queryKey is used to generate a unique key for the query in the cache.
-        queryKey: ['user'],
+        queryKey: ['ranking'],
         // The queryFn is called to fetch the data for the query.
         queryFn: async () => {
             const supabase = createClient();
             const { data } = await supabase.auth.getSession();
+            // Check if the session and user data exists
             if (data.session?.user) {
-                const profileData = await supabase
-                    .from('profiles')
+                // Fetch user information profile from the profiles table
+                const { data: ranking } = await supabase
+                    .from('rankingprogress')
                     .select("*")
                     .eq("id", data.session.user.id)
                     .single();
-
-                return profileData.data || initUser;
+                return ranking;
             }
-            return initUser;
+            return ranking;
         }
     });
 }
