@@ -9,9 +9,9 @@ import { createClient } from '@utils/supabase/clients';
 import { ExerciseProgressDisplayComponent } from "@/components/exercise-progress-display"
 import useRanking from "../hook/useRanking";
 export default function home() {
-  const userId = useUserStore((state) => state.userId);
-  const email = useUserStore((state) => state.email);
-  const setUser = useUserStore((state) => state.setUser);
+  // const userId = useUserStore((state) => state.userId);
+  // const email = useUserStore((state) => state.email);
+  // const setUser = useUserStore((state) => state.setUser);
 
   const { isFetching, data } = useRanking();
   const [totalExercises, setTotalExercises] = useState(100) // Replace with actual total

@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form"
 import { Celebration } from '@/components/celebration'
 import { AlertDialogDemo } from '@/components/ExerciseModal'
-import getUnsolvedExercise from '@/app/hook/useUnsolvedRandomExercise'
+import useUnsolvedExercise from '@/app/hook/useUnsolvedRandomExercise'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
@@ -41,7 +41,7 @@ export default function Exercise() {
   const { isFetching: isFetchingUser, data: userData } = useUser();
   
   // Fetch the exercise data
-  const { isFetching, data, refetchExercise } = getUnsolvedExercise()
+  const { isFetching, data, refetchExercise } = useUnsolvedExercise()
   
   // Check if exercise data is received
   const exercise = data && data.length > 0 ? data[0] : null

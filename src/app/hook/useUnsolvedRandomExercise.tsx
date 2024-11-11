@@ -12,7 +12,7 @@ const initExercise = {
 };
 
 //export default function useRandomExercise(timeStamp:number) {
-export default function getUnsolvedExercise() { 
+export default function useUnsolvedExercise() { 
     const queryClient = useQueryClient();
 
     const fetchUnsolvedExercise = async () => {

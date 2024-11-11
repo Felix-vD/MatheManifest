@@ -36,7 +36,7 @@ export function Celebration() {
         className="text-center"
       >
         <h1 className="text-6xl font-bold text-white mb-6">🎉 Congratulations! 🎉</h1>
-        <p className="text-2xl text-white mb-8">You've solved all the exercises!</p>
+        <p className="text-2xl text-white mb-8">You&apos;ve solved all the exercises!</p>
       </motion.div>
       <motion.div
         initial={{ y: 50, opacity: 0 }}
