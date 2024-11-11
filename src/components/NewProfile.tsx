@@ -21,7 +21,7 @@ import useUser from '@/app/hook/useUser'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
-import { updateAvatar } from '@/utils/supabase/server';
+import { updateAvatar } from "@utils/supabase/server"
 const avatarOptions = [
   { url: "https://dmnwtiwosybsrxctamcd.supabase.co/storage/v1/object/sign/avatar/Avatar.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXIvQXZhdGFyLmpwZWciLCJpYXQiOjE3Mjg5NzY0MzgsImV4cCI6MTc2MDUxMjQzOH0.ZuIx8CbplZn12P8v1HYCNIGyvTJQaHF-0uo_a75tnnE&t=2024-10-15T07%3A13%3A57.839Z", alt: "Avatar 1" },
   { url: "https://dmnwtiwosybsrxctamcd.supabase.co/storage/v1/object/sign/avatar/mr-bean-bean.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXIvbXItYmVhbi1iZWFuLnBuZyIsImlhdCI6MTcyODk3NjQ1MCwiZXhwIjoxNzYwNTEyNDUwfQ.kp8elasKcY8JSBST1DJZDqTXIh31GsQINbj26J48Czw&t=2024-10-15T07%3A14%3A09.863Z", alt: "Avatar 2" },
