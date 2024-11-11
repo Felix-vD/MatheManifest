@@ -24,34 +24,34 @@ export default function home() {
       setSolvedExercises(data.total_solved);
     }
   }, [data, setSolvedExercises]);  
-  useEffect(() => {
-    // If Zustand store is empty, fetch user data and update the store
-    if (!userId || !email) {
-      const supabase = createClient();
-      const fetchUser = async () => {
-        const { data, error } = await supabase.auth.getSession();
-        if (error) {
-          console.error('Error fetching user session:', error.message);
-          return;
-        }
+  // useEffect(() => {
+  //   // If Zustand store is empty, fetch user data and update the store
+  //   if (!userId || !email) {
+  //     const supabase = createClient();
+  //     const fetchUser = async () => {
+  //       const { data, error } = await supabase.auth.getSession();
+  //       if (error) {
+  //         console.error('Error fetching user session:', error.message);
+  //         return;
+  //       }
 
-        if (data.session?.user) {
-          const { id, email } = data.session.user;
-          if (email) {
-            setUser(id, email); // Only set user state if email is defined
+  //       if (data.session?.user) {
+  //         const { id, email } = data.session.user;
+  //         if (email) {
+  //           setUser(id, email); // Only set user state if email is defined
 
-            // Log the values to verify they are correctly set
-            console.log("User ID set in Zustand:", id);
-            console.log("User Email set in Zustand:", email);
-          } else {
-            console.warn('User email is undefined');
-          }
-        }
-      };
+  //           // Log the values to verify they are correctly set
+  //           console.log("User ID set in Zustand:", id);
+  //           console.log("User Email set in Zustand:", email);
+  //         } else {
+  //           console.warn('User email is undefined');
+  //         }
+  //       }
+  //     };
 
-      fetchUser();
-    }
-  }, [userId, email, setUser]);
+  //     fetchUser();
+  //   }
+  // }, [userId, email, setUser]);
   //const timestamp = Date.now();
   
   return (
@@ -71,10 +71,7 @@ export default function home() {
                 
               </div>
               <div className="w-full lg:w-2/5 flex flex-col gap-4 mt-auto">
-              <ExerciseProgressDisplayComponent 
-                totalExercises={totalExercises} 
-                solvedExercises={solvedExercises} 
-              />
+              <ExerciseProgressDisplayComponent/>
               {/* Your other dashboard content goes here */}
             </div>
             </div>
