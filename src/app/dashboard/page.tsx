@@ -13,17 +13,11 @@ export default function home() {
   // const email = useUserStore((state) => state.email);
   // const setUser = useUserStore((state) => state.setUser);
 
-  const { isFetching, data } = useRanking();
-  const [totalExercises, setTotalExercises] = useState(100) // Replace with actual total
-  const [solvedExercises, setSolvedExercises] = useState(0) // Replace with actual total;
+  
 
 
 
-  useEffect(() => {
-    if (data) {
-      setSolvedExercises(data.total_solved);
-    }
-  }, [data, setSolvedExercises]);  
+  
   // useEffect(() => {
   //   // If Zustand store is empty, fetch user data and update the store
   //   if (!userId || !email) {
