@@ -1,27 +1,33 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { Sparkles } from 'lucide-react';
-import useRanking from '@/app/hook/useRanking';
+import { useState, useEffect } from 'react'
+import { motion, useAnimation } from 'framer-motion'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Progress } from '@/components/ui/progress'
+import { Badge } from '@/components/ui/badge'
+import { Sparkles } from 'lucide-react'
+import useRanking from '@/app/hook/useRanking'
 
 export function ExerciseProgressDisplayComponent() {
-  const [progress, setProgress] = useState(0);
-  const { data: rankingData, isLoading } = useRanking();
-  const totalExercises = 100; // Assuming a default total, replace as needed
-  const solvedExercises = rankingData?.total_solved || 0;
+  const [progress, setProgress] = useState(0)
+  const { data: rankingData, isLoading } = useRanking()
+  const totalExercises = 100 // Assuming a default total, replace as needed
+  const solvedExercises = rankingData?.total_solved || 0
+  const controls = useAnimation()
 
   useEffect(() => {
     if (!isLoading) {
       const timer = setTimeout(() => {
-        setProgress((solvedExercises / totalExercises) * 100);
-      }, 500);
-      return () => clearTimeout(timer);
+        const newProgress = (solvedExercises / totalExercises) * 100
+        setProgress(newProgress)
+        controls.start({
+          width: `${newProgress}%`,
+          transition: { duration: 0.5, ease: "easeInOut" }
+        })
+      }, 500)
+      return () => clearTimeout(timer)
     }
-  }, [solvedExercises, totalExercises, isLoading]);
+  }, [solvedExercises, totalExercises, isLoading, controls])
 
   return (
     <Card className="w-full max-w-md overflow-hidden">
@@ -31,7 +37,13 @@ export function ExerciseProgressDisplayComponent() {
       </CardHeader>
       <CardContent>
         <div className="relative pt-4">
-          <Progress value={progress} className="h-2" />
+          <div className="h-2 bg-secondary rounded-full overflow-hidden">
+            <motion.div
+              className="h-full bg-primary"
+              initial={{ width: 0 }}
+              animate={controls}
+            />
+          </div>
           <motion.div
             className="absolute top-0 left-0 w-full h-full pointer-events-none"
             initial={{ scale: 0, opacity: 0 }}
@@ -53,9 +65,9 @@ export function ExerciseProgressDisplayComponent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          {Math.round((solvedExercises / totalExercises) * 100)}% Complete
+          {Math.round(progress)}% Complete
         </motion.p>
       </CardContent>
     </Card>
-  );
+  )
 }
