@@ -1,26 +1,27 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
-import { Sparkles } from 'lucide-react'
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import { Sparkles } from 'lucide-react';
+import useRanking from '@/app/hook/useRanking';
 
-interface ExerciseProgressDisplayProps {
-  totalExercises: number
-  solvedExercises: number
-}
-
-export function ExerciseProgressDisplayComponent({ totalExercises, solvedExercises }: ExerciseProgressDisplayProps) {
-  const [progress, setProgress] = useState(0)
+export function ExerciseProgressDisplayComponent() {
+  const [progress, setProgress] = useState(0);
+  const { data: rankingData, isLoading } = useRanking();
+  const totalExercises = 100; // Assuming a default total, replace as needed
+  const solvedExercises = rankingData?.total_solved || 0;
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setProgress((solvedExercises / totalExercises) * 100)
-    }, 500)
-    return () => clearTimeout(timer)
-  }, [solvedExercises, totalExercises])
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        setProgress((solvedExercises / totalExercises) * 100);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [solvedExercises, totalExercises, isLoading]);
 
   return (
     <Card className="w-full max-w-md overflow-hidden">
@@ -56,5 +57,5 @@ export function ExerciseProgressDisplayComponent({ totalExercises, solvedExercis
         </motion.p>
       </CardContent>
     </Card>
-  )
+  );
 }
