@@ -6,7 +6,7 @@ import styles from "./dashboard.module.css"
 import { useEffect, useState } from 'react';
 import { useUserStore } from '@/app/store/useUserStore';
 import { createClient } from '@utils/supabase/clients';
-import { ExerciseProgressDisplayComponent } from "@/components/exercise-progress-display"
+import ExerciseProgressDisplay  from "@/components/exercise-progress-display"
 import useRanking from "../hook/useRanking";
 export default function home() {
   // const userId = useUserStore((state) => state.userId);
@@ -65,7 +65,7 @@ export default function home() {
                 
               </div>
               <div className="w-full lg:w-2/5 flex flex-col gap-4 mt-auto">
-              <ExerciseProgressDisplayComponent/>
+              <ExerciseProgressDisplay/>
               {/* Your other dashboard content goes here */}
             </div>
             </div>
