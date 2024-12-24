@@ -89,7 +89,7 @@ export default function LoginPage() {
       password: data.password,
     });
     if (error) setError(error.message);
-    else router.push('/auth/callback');
+    else router.push('/dashboard');
     setLoading(false);
   };
 
@@ -145,16 +145,17 @@ export default function LoginPage() {
                       <Button type="submit" disabled={loading} className="block w-full flex items-center gap-2">
                         {loading ? 'Loading...' : 'Sign Up'}
                       </Button>
-                      <Button className="block w-full flex items-center gap-2" variant="outline" onClick={() => handleOAuthLogin("github")}>
+                      
+                    </div>
+                  </form>
+                </Form>
+                {error && <p className="text-red-500">{error}</p>}
+                <Button className="block w-full flex items-center gap-2" variant="outline" onClick={() => handleOAuthLogin("google")}>
                         <FaSquareGithub className="w-6 h-6" />GitHub
                       </Button>
                       <Button className="block w-full flex items-center gap-2" variant="outline" onClick={() => handleOAuthLogin("google")}>
                         <FcGoogle className="w-6 h-6" /> Google
                       </Button>
-                    </div>
-                  </form>
-                </Form>
-                {error && <p className="text-red-500">{error}</p>}
               </CardContent>
             </Card>
           </TabsContent>
