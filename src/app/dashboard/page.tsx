@@ -1,7 +1,7 @@
 "use client"
 import  SidebarLayoutComponent  from "@/components/sidebar-layout";
 import DashboardNewsfeed from "@/components/app-components-dashboard-newsfeed"
-import ProgressRadarChart from "@/components/app-components-radar-chart" 
+//import ProgressRadarChart from "@/components/app-components-radar-chart" 
 import styles from "./dashboard.module.css"
 import { useEffect, useState } from 'react';
 import { useUserStore } from '@/app/store/useUserStore';
@@ -61,7 +61,7 @@ export default function home() {
             </div>
             <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-100px)]">
               <div className="w-full lg:w-3/5 h-full -mt-2"> {/* Adjusted margin here */}
-                <ProgressRadarChart />
+                
                 
               </div>
               <div className="w-full lg:w-2/5 flex flex-col gap-4 mt-auto">
