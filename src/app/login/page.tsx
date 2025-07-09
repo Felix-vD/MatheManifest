@@ -60,7 +60,7 @@ export default function LoginPage() {
             <CardHeader>
                 <CardTitle>SignUps</CardTitle>
                 <CardDescription>
-                    If you don'&apos;t have an account, you can sign up here.
+                    If you don&apos;t have an account, you can sign up here.
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
