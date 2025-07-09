@@ -1,7 +1,7 @@
-// "use client"
+"use client"
 
-// import * as React from "react"
-// import * as RechartsPrimitive from "recharts"
+import * as React from "react"
+import * as RechartsPrimitive from "recharts"
 
 // import { cn } from "@/lib/utils"
 
@@ -363,3 +363,4 @@
 //   ChartLegendContent,
 //   ChartStyle,
 // }
+export const ChartContainer = React.forwardRef<...>(/* ... */);
