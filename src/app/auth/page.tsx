@@ -52,7 +52,24 @@ export default function LoginPage() {
   const handleOAuthLogin = async (provider: 'github' | 'google') => {
     setLoading(true);
     const supabase = createClient();
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+    
+    // More robust URL detection
+    let siteUrl: string;
+    if (process.env.NEXT_PUBLIC_SITE_URL) {
+      siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    } else if (typeof window !== 'undefined') {
+      siteUrl = window.location.origin;
+    } else {
+      // Fallback for SSR or when window is not available
+      siteUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://rechenkunst.vercel.app' // Replace with your actual Vercel URL
+        : 'http://localhost:3000';
+    }
+    
+    console.log('OAuth redirect URL:', siteUrl);
+    console.log('NEXT_PUBLIC_SITE_URL:', process.env.NEXT_PUBLIC_SITE_URL);
+    console.log('NODE_ENV:', process.env.NODE_ENV);
+    
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
