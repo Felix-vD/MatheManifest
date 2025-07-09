@@ -52,24 +52,8 @@ export default function LoginPage() {
   const handleOAuthLogin = async (provider: 'github' | 'google') => {
     setLoading(true);
     const supabase = createClient();
-    
-    // More robust URL detection
-    let siteUrl: string;
-    console.log('=== OAuth URL Debug ===');
-    console.log('process.env.NEXT_PUBLIC_SITE_URL:', process.env.NEXT_PUBLIC_SITE_URL);
-    console.log('typeof window:', typeof window);
-    console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
-    
-    if (process.env.NODE_ENV === 'production') {
-      siteUrl = 'https://rechenkunst.vercel.app';
-      console.log('Using production URL:', siteUrl);
-    } else {
-      siteUrl = window.location.origin;
-      console.log('Using localhost URL:', siteUrl);
-    }
-    
-    console.log('Final OAuth redirect URL:', siteUrl);
-    
+    const siteUrl = 'https://rechenkunst.vercel.app'; // Hardcoded, ignore localhost
+    console.log('Hardcoded OAuth redirect URL:', siteUrl);
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
