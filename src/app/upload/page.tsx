@@ -59,6 +59,14 @@ const NewExerciseForm: React.FC = () => {
     name: "solutions",
   });
 
+  // Create an array of subsolution field arrays, one for each exercise
+  const subSolutionFieldArrays = exerciseFields.map((_, exerciseIndex) =>
+    useFieldArray<FormValues, NestedSolutionPath>({
+      control,
+      name: `solutions.${exerciseIndex}.subsolutions` as NestedSolutionPath,
+    })
+  );
+
   const [topics, setTopics] = useState<Topic[]>([]);
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [formMessage, setFormMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -196,13 +204,9 @@ const NewExerciseForm: React.FC = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Solutions (Nested Array Input)</h3>
             {exerciseFields.map((exercise, exerciseIndex) => {
-              // Define the nested name as a template literal and cast it to NestedSolutionPath.
-              const nestedName = (`solutions.${exerciseIndex}.subsolutions` as unknown) as NestedSolutionPath;
+              // Use the pre-created subSolutionFieldArrays instead of calling useFieldArray here
               const { fields: subSolutionFields, append: appendSubSolution, remove: removeSubSolution } =
-                useFieldArray<FormValues, NestedSolutionPath>({
-                  control,
-                  name: nestedName,
-                });
+                subSolutionFieldArrays[exerciseIndex];
               return (
                 <div key={exercise.id} className="p-4 border rounded">
                   <div className="flex items-center justify-between">
