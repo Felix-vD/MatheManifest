@@ -52,10 +52,11 @@ export default function LoginPage() {
   const handleOAuthLogin = async (provider: 'github' | 'google') => {
     setLoading(true);
     const supabase = createClient();
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${siteUrl}/auth/callback`,
       },
     });
     if (error) setError(error.message);
