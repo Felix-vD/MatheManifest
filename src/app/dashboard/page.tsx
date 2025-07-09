@@ -5,7 +5,7 @@ import DashboardNewsfeed from "@/components/app-components-dashboard-newsfeed"
 import styles from "./dashboard.module.css"
 import { useEffect, useState } from 'react';
 import { useUserStore } from '@/app/store/useUserStore';
-import { createClient } from '@utils/supabase/clients';
+import { createClient } from '@/utils/supabase/client';
 import ExerciseProgressDisplay  from "@/components/exercise-progress-display"
 import useRanking from "../hook/useRanking";
 export default function home() {

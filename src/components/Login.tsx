@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareGithub } from "react-icons/fa6";
-import { createClient } from "@utils/supabase/clients";
+import { createClient } from "@/utils/supabase/client";
 
 const loginSchema = z.object({
     username: z.string().min(2, "Username must be at least 2 characters long").max(25, "Username must be at most 25 characters long"),

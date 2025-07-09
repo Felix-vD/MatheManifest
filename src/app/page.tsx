@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { Input } from "postcss";
-import { createClient } from "@utils/supabase/clients";
+import { createClient } from "@/utils/supabase/client";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareGithub } from "react-icons/fa6";
 import Link from "next/link";

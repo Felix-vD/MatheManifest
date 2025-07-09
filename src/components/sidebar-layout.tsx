@@ -36,6 +36,7 @@ export default function SidebarLayoutComponent({ children }: SidebarProps) {
       { name: 'Re(chenkunst)ddit', icon: Users, href: '/faq' },
       { name: 'Youtube', icon: Youtube, href: 'https://www.youtube.com/@RechenKunst' },
       { name: 'Ungeloest', icon: Accessibility, href: '/randomExercise' },
+      { name: 'ZP10', icon: Accessibility, href: '/randomSelfControlledExercise' },
     ],
     [
       { name: 'About us', icon: Search, href: '/about' },

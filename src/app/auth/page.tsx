@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareGithub } from "react-icons/fa6";
-import { createClient } from '@utils/supabase/clients';
+import { createClient } from '@/utils/supabase/client';
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { Boxes } from "@/components/ui/background-boxes";
@@ -95,9 +95,7 @@ export default function LoginPage() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-slate-900 flex items-center justify-center">
-      <div className="absolute inset-0 w-full h-full z-10 [mask-image:radial-gradient(transparent,white)] pointer-events-none">
-        <Boxes />
-      </div>
+      
       <div className="relative z-20 flex items-center justify-center h-screen">
         <Tabs defaultValue="signup" className="w-[400px]">
           <TabsList className="grid w-full grid-cols-2">

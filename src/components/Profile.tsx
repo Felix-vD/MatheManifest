@@ -4,7 +4,7 @@ import {Button} from "./ui/button";
 import Link from 'next/link';
 import useUser from '@/app/hook/useUser';
 import { useQueryClient } from '@tanstack/react-query';
-import { supabaseBrowser } from '@utils/supabase/browser';
+import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
 export default function Profile() {
@@ -18,7 +18,7 @@ export default function Profile() {
     const handleLogout = async () => {
         //call the signOut method from the auth object
         //this will sign out the current user
-        const supabase = supabaseBrowser();
+        const supabase = createClient();
         queryClient.clear();
         await supabase.auth.signOut();
         router.refresh();

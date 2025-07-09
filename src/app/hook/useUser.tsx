@@ -1,5 +1,5 @@
 "use client"
-import { createClient } from '@utils/supabase/clients';
+import { createClient } from '@/utils/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { FaDisplay } from 'react-icons/fa6';
 

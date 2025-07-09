@@ -4,7 +4,7 @@ import {Button} from "./ui/button";
 import Link from 'next/link';
 import useUser from '@/app/hook/useUser';
 import { useQueryClient } from '@tanstack/react-query';
-import { createClient } from '@utils/supabase/clients';
+import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 

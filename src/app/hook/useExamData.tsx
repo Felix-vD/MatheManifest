@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { supabaseBrowser } from '@utils/supabase/browser';
+import { createClient } from '@/utils/supabase/client';
 
 export interface Chapter {
   id: string;
@@ -21,7 +21,7 @@ export interface ExamGroup {
 }
 
 const fetchExamData = async (): Promise<ExamGroup[]> => {
-  const supabase = supabaseBrowser();
+  const supabase = createClient();
   const { data, error } = await supabase
     .from('exam_groups')
     .select(`

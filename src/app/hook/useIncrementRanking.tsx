@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { supabaseBrowser } from '@utils/supabase/browser'; // Assuming this function initializes Supabase client
+import { createClient } from '@/utils/supabase/client'; // Assuming this function initializes Supabase client
 
 export const useUpdateTotalSolved = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,7 +10,7 @@ export const useUpdateTotalSolved = () => {
     setError(null);
 
     try {
-      const { data, error } = await supabaseBrowser().rpc('increment_total_solved', {
+      const { data, error } = await createClient().rpc('increment_total_solved', {
         user_uuid: userId ,
       });
 

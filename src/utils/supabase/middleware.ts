@@ -55,48 +55,49 @@ export async function updateSession(request: NextRequest) {
     }
   )
   
-  const {data} = await supabase.auth.getUser();
+  // Fetch the current user session
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    console.error('Error fetching user:', error.message);
+  }
+
   const url = new URL(request.url);
-  console.log(data)
-  if(data.user){
-    if(url.pathname === '/auth'){
+  const user = data?.user;
 
-      //Maybe i need to do return NextResponse.redirect(new URL ("/", request.url))
-      return NextResponse.redirect(
-        new URL ("/", request.url)
-      )
-    }
-    return NextResponse.next();
-  }else{
-    if(protectedPaths.includes(url.pathname)){
-      //Maybe i need to do return NextResponse.redirect(new URL ("/auth", request.url))
-      return NextResponse.redirect(
-        new URL ("/auth?next=" + url.pathname, request.url)
-      );
-    }
+  // Redirect authenticated users away from the /auth page
+  if (user && url.pathname === '/auth') {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
-  if (data.user) {
+
+  // Redirect unauthenticated users trying to access protected paths
+  if (!user && protectedPaths.includes(url.pathname)) {
+    return NextResponse.redirect(new URL(`/auth?next=${url.pathname}`, request.url));
+  }
+
+  // Set or update the loggedIn cookie based on user authentication status
+  response.cookies.set({
+    name: 'loggedIn',
+    value: user ? 'true' : 'false',
+    path: '/',
+    httpOnly: true, // Prevent access via JavaScript
+    secure: process.env.NODE_ENV === 'production', // Only use secure cookies in production
+    sameSite: 'strict',
+  });
+
+  // Optionally store user ID in a cookie for easier future access
+  if (user) {
     response.cookies.set({
-      name: 'loggedIn',
-      value: 'true',
+      name: 'userId',
+      value: user.id,
       path: '/',
-      httpOnly: true, // This cookie should not be accessible via JavaScript in the browser
-      secure: process.env.NODE_ENV === 'production', // For HTTPS only
-      sameSite: 'strict'
-    });
-  } else {
-    response.cookies.set({
-      name: 'loggedIn',
-      value: 'false',
-      path: '/',
-      httpOnly: true,
+      httpOnly: true, // Not accessible via JavaScript
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict'
+      sameSite: 'strict',
     });
   }
-  
- 
-  await supabase.auth.getUser()
 
+  // Optional: Remove or comment out debug logging if not needed
+  // console.log(url.pathname);
+  
   return response;
 }

@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { supabaseBrowser } from '@utils/supabase/browser';
+import { createClient } from '@/utils/supabase/client';
 
 const initExercise = {
     id: "",
@@ -12,7 +12,7 @@ export default function useRandomTestExercise() {
     const queryClient = useQueryClient();
 
     const fetchNewExercise = async () => {
-        const supabase = supabaseBrowser();
+        const supabase = createClient();
         const { data: sessionData } = await supabase.auth.getSession();
         if (sessionData.session?.user) {
             const { data: exerciseData } = await supabase.rpc('get_test_exercise');

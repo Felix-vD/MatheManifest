@@ -26,14 +26,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="system">
+          
           
             <main className="max-w-8xl min-h-screen mx-auto  space-y-10">
               
                 {children}
             </main>
             
-          </ThemeProvider>
+          
         </QueryProvider>
       </body>
     </html>
