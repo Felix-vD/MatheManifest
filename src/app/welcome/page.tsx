@@ -18,7 +18,7 @@ export default function welcomePage() {
                 <div className="text-center">
                     <div className="text-6xl font-bold text-neutral-600 dark:text-neutral-400 mb-6">
                         Willkommen bei {" "}
-                        <Link href="http://localhost:3000/auth" className="font-bold">
+                        <Link href="/auth" className="font-bold">
                         Rechenkunst
                         </Link>
                     </div>
