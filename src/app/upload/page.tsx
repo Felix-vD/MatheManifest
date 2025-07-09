@@ -1,14 +1,14 @@
-// "use client";
+"use client";
 
-// import { useState, useEffect } from "react";
-// import { useForm, useFieldArray } from "react-hook-form";
-// import useExamData, { type ExamGroup, type Topic, type Chapter } from "../hook/useExamData";
-// import { createClient } from '@/utils/supabase/client'; 
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { Label } from "@/components/ui/label";
-// import { Input } from "@/components/ui/input";
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-// import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import { useForm, useFieldArray } from "react-hook-form";
+import useExamData, { type ExamGroup, type Topic, type Chapter } from "../hook/useExamData";
+import { createClient } from '@/utils/supabase/client'; 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 // // Define types for subsolutions and exercise solutions.
 // type SubSolution = {
@@ -250,3 +250,6 @@
 // };
 
 // export default NewExerciseForm;
+export default function UploadPage() {
+  return <div>Upload page is temporarily disabled.</div>;
+}
