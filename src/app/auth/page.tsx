@@ -55,20 +55,20 @@ export default function LoginPage() {
     
     // More robust URL detection
     let siteUrl: string;
-    if (process.env.NEXT_PUBLIC_SITE_URL) {
-      siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-    } else if (typeof window !== 'undefined') {
-      siteUrl = window.location.origin;
+    console.log('=== OAuth URL Debug ===');
+    console.log('process.env.NEXT_PUBLIC_SITE_URL:', process.env.NEXT_PUBLIC_SITE_URL);
+    console.log('typeof window:', typeof window);
+    console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
+    
+    if (process.env.NODE_ENV === 'production') {
+      siteUrl = 'https://rechenkunst.vercel.app';
+      console.log('Using production URL:', siteUrl);
     } else {
-      // Fallback for SSR or when window is not available
-      siteUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://rechenkunst.vercel.app' // Replace with your actual Vercel URL
-        : 'http://localhost:3000';
+      siteUrl = window.location.origin;
+      console.log('Using localhost URL:', siteUrl);
     }
     
-    console.log('OAuth redirect URL:', siteUrl);
-    console.log('NEXT_PUBLIC_SITE_URL:', process.env.NEXT_PUBLIC_SITE_URL);
-    console.log('NODE_ENV:', process.env.NODE_ENV);
+    console.log('Final OAuth redirect URL:', siteUrl);
     
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
