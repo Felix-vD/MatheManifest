@@ -15,10 +15,10 @@ interface NewsItem {
 
 // In a real application, this would be fetched from an API
 const mockNews: NewsItem[] = [
-  { id: 1, content: "I got a penis reduction. Just have the one now!", date: "2023-06-15" },
-  { id: 2, content: "Grasshopper walks into a bar. Barman says: We have a drink named after you. The grasshopper is suprised: Really? you have a drink called steve?", date: "2023-06-14" },
-  { id: 3, content: "Simon successfully grew 3 cannabis plants.", date: "2024-10-07" },
-  { id: 4, content: "In case you want to stop Simon from teaching, bring up bad math viedeos and enjoy the rant!", date: "2023-06-12" },
+  { id: 1, content: "", date: "2023-06-11" },
+  { id: 2, content: "", date: "2023-06-11" },
+  { id: 3, content: "", date: "2023-06-11" },
+  { id: 4, content: "", date: "2023-06-11" },
   { id: 5, content: "", date: "2023-06-11" },
 ]
 

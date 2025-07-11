@@ -28,12 +28,6 @@ const projects = [
     link: "https://google.com",
   },
   {
-    title: "Pornhub",
-    description:
-      "Wenn ihr ... naja ihr wisst schon...",
-    link: "https://pornhub-deutsch.net/",
-  },
-  {
     title: "Amazon",
     description:
       "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",

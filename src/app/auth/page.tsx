@@ -52,8 +52,9 @@ export default function LoginPage() {
   const handleOAuthLogin = async (provider: 'github' | 'google') => {
     setLoading(true);
     const supabase = createClient();
-    const siteUrl = 'https://rechenkunst.vercel.app'; // Hardcoded, ignore localhost
-    console.log('Hardcoded OAuth redirect URL:', siteUrl);
+    // Dynamically get the current site URL (works for localhost and production)
+    const siteUrl = typeof window !== "undefined" ? window.location.origin : '';
+    console.log('Dynamic OAuth redirect URL:', siteUrl);
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
